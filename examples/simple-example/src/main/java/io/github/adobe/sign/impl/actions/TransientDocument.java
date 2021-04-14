@@ -49,7 +49,7 @@ public class TransientDocument implements SignAction {
             Authenticated authenticated = signAuth.refresh(this.credentialLoader, metadata);
             Header bearerToken = new BasicHeader("Authorization",
                     String.format("Bearer %s", authenticated.getAccessToken()));
-            Header apiUser = new BasicHeader("x-api-user", "email:patrique.legault+dev@aftia.com");
+            Header apiUser = new BasicHeader("x-api-user", "email:will.mccue+dev@aftia.com");
             headers = List.of(bearerToken, apiUser);
         } catch (Exception e) {
             throw new SignActionException(e.getMessage(), e);

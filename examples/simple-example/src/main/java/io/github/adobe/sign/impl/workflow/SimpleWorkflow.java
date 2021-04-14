@@ -12,6 +12,7 @@ import io.github.adobe.sign.core.actions.SignAction;
 import io.github.adobe.sign.core.auth.CredentialLoader;
 import io.github.adobe.sign.impl.CliCommand;
 import io.github.adobe.sign.impl.CliComponent;
+import io.github.adobe.sign.impl.actions.AgreementSendAction;
 import io.github.adobe.sign.impl.actions.TransientDocument;
 import io.github.adobe.sign.impl.auth.BasicSignAuth;
 import io.github.adobe.sign.impl.auth.FileCredentialLoader;
@@ -21,6 +22,7 @@ import io.github.adobe.sign.impl.executor.BasicWorkflowExecutor;
 public class SimpleWorkflow extends BasicWorkflowExecutor implements CliCommand {
 
     SignAction transientDocument;
+    SignAction agreementSendAction;
 
     @Override
     public Options getOptions() {
@@ -38,6 +40,9 @@ public class SimpleWorkflow extends BasicWorkflowExecutor implements CliCommand 
 
         // Add the work item to the workflow
         this.addAction(this.transientDocument);
+
+        this.agreementSendAction = new AgreementSendAction(credentialLoader);
+        this.addAction(this.agreementSendAction);
 
         // Run it
         return type.cast(this.invoke(new BasicSignAuth(), null, null));
